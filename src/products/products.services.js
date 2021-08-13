@@ -1,5 +1,4 @@
 const ProductMongoose = require('./products.mongoose')
-const { find } = require('./products.schema')
 const mongoose = new ProductMongoose
 class ProductsService{
     async getAll(){

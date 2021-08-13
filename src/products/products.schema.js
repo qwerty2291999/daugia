@@ -13,8 +13,9 @@ const ProductsSchema = mongoose.Schema({
         required:true
     },
     productStartingPrice:{
-        type:String,
+        type:Number,
         required:true
     }
+    
 })
 module.exports = mongoose.model('Products',ProductsSchema)

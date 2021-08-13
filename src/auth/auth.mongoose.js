@@ -1,6 +1,5 @@
 const user = require('./auth.account.schema')
 const pass = require("./auth.password.schema")
-const session = require('./session')
 class AuthMongoose{
     async register(params){
         const checkExist = await user.findOne({username:params.username})
