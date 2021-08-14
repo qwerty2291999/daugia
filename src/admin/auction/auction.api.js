@@ -9,11 +9,23 @@ const random = new Random();
 const Timer = require('../../../lib/Timer');
 
 const timer = new Timer;
-const now = new Date()
+
 
 app.get('/',async(req,res)=>{
-    const docs = await product.getAll();
+    const docs = await auction.expires();
     res.json(docs)
+})
+app.get('/ongoing',async(req,res)=>{
+    const docs = await auction.getOngoing();
+    res.json(docs)
+})
+app.get('/completed',async(req,res)=>{
+    const docs = await auction.getCompleted();
+    res.json(docs)
+})
+app.get('/one/:id',async(req,res)=>{
+    const doc = await auction.findId();
+    res.json(doc)
 })
 app.post('/create/:productId',async (req,res)=>{
     const productId = req.params.productId
@@ -30,12 +42,13 @@ app.post('/create/:productId',async (req,res)=>{
         startingPrice : price.productStartingPrice,
         minBet : req.body.min,
         currentBet : 0,
-        dateStart : now,
-        dateEnd : timer.nextDay(req.body.end)
+        dateStart : timer.now(),
+        dateEnd : timer.nextDay(req.body.end),
+        status : "ongoing"
     }
     const doc = await auction.create(params);
     res.json(doc)
     }
-    
 })
+
 module.exports = app;

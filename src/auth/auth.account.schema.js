@@ -15,6 +15,14 @@ const UsersSchema = mongoose.Schema({
     role:{
         type:String,
         required:true
+    },
+    inventory:{
+        type:[Object]
+    }
+    ,
+    accountStatus:{
+        type:String,
+        required:true
     }
 })
 module.exports = mongoose.model('Users',UsersSchema)

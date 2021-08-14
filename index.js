@@ -4,6 +4,12 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const cron = require('node-cron');
 app.use(express.json());
+const AuctionServices = require('./src/admin/auction/auction.services');
+const auction = new AuctionServices;
+const Middleware = require('./src/auth/auth.middlware');
+const middlware = new Middleware;
+const cookieParser = require('cookie-parser');
+app.use(cookieParser())
 // 
 const port = 3000;
 app.listen(port,()=>console.log("app running on port:3000"))
@@ -23,7 +29,21 @@ const AdminAPI = require('./src/admin/admin.api')
 app.use("/admin",AdminAPI)
 const AdminAuctionAPI = require('./src/admin/auction/auction.api');
 app.use("/admin/auction",AdminAuctionAPI)
-//6 sao = 1 sec 5 = 1p 4 = 1h if number instead * run every same sec of a min 
-cron.schedule('* * * * *', () => {
-    console.log('running a task every min');
+const UserAPI = require('./src/user/user.api');
+app.use("/user",UserAPI)
+
+// const sentNotify = async () =>{
+//     const filter = auction.notify();
+//     console.log(filter)
+// }
+const changStatus = async () =>{
+    const docs =  await auction.changeStatus();
+    if(docs.length>0){
+        docs.map(async (doc)=>{
+            await auction.updateOne({id:doc._id,status:"completed"})
+        })
+    }
+}
+cron.schedule('* * * * *', async () => {
+    changStatus();
 });

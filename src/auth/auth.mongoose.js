@@ -4,7 +4,7 @@ class AuthMongoose{
     async register(params){
         const checkExist = await user.findOne({username:params.username})
         if(!checkExist){
-            const doc = await user.create({_id:params.id,username:params.username,email:params.email})
+            const doc = await user.create({_id:params.id,username:params.username,email:params.email,accountStatus:params.accountStatus,role:params.role})
             if(doc){
                 const password = await pass.create({_id:params.id,password:params.password})
                 if(password){

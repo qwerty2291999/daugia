@@ -31,6 +31,10 @@ const AuctionSchema = mongoose.Schema({
     dateEnd:{
         type:String,
         required:true
+    },
+    status:{
+        type:String,
+        required:true
     }
 })
 module.exports = mongoose.model('Auctions',AuctionSchema)

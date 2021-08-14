@@ -12,5 +12,8 @@ class AuctionMongoose{
         const docs = await auction.find();
         return docs;
     }
+    async updateOne(params){
+        await auction.updateOne({_id:params.id}, { $set: {status:"completed"}})
+    }
 }
 module.exports = AuctionMongoose;

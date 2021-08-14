@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const jwtdecode = require('jwt-decode')
 class Middleware{
     Auth(req,res,next){
         let token = req.headers.authorization
@@ -11,7 +12,7 @@ class Middleware{
         if(token == req.cookies.token){
             jwt.verify(token,"token",(err,decoded)=>{
                 if(err){
-                    res.cookie('token',"", { maxAge: 0, httpOnly: true },{path: '/'});
+                    // res.cookie('token',"", { maxAge: 0, httpOnly: true },{path: '/'});
                     res.status(401).json('Token is invalid please relogin');
                 }
                 else{
@@ -22,7 +23,7 @@ class Middleware{
             })
         }
         else{
-            res.cookie('token',"", { maxAge: 0, httpOnly: true },{path: '/'});
+            // res.cookie('token',"", { maxAge: 0, httpOnly: true },{path: '/'});
             return res.status(401).json('Token is invalid please relogin')
         }
     }

@@ -1,15 +1,12 @@
 const express = require('express');
 const app = express.Router();
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 const AuthServices = require('./auth.service');
 const AuthService = new AuthServices;
 const Random = require('../../lib/RandomString')
 const random = new Random();
 const Middleware = require('../auth/auth.middlware')
 const middlware = new Middleware;
-
-app.use(cookieParser())
 
 const Age = 1000 * 60 * 60 * 3;
 
@@ -28,9 +25,9 @@ app.post('/login',middlware.checkLogin,async (req,res)=>{
         res.json(doc);
     }
 })
-app.get('/user',middlware.Auth,async(req,res)=>{
+app.get('/me',middlware.Auth,async(req,res)=>{
     const decoded = req.decoded;
-    res.json(decoded)
+    res.json(decoded);
 })
 app.post('/register',async (req,res)=>{
     const params = {
@@ -39,7 +36,8 @@ app.post('/register',async (req,res)=>{
         password: req.body.password,
         confirmPass : req.body.confirmpass,
         email: req.body.email,
-        role:"user"
+        role:"user",
+        accountStatus:"normal"
     }
     const doc = await AuthService.register(params);
     res.json(doc)
