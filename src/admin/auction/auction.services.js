@@ -42,5 +42,20 @@ class AuctionServices{
         })
         return filter
     }
+    async sentNotify(){
+        const docs = await this.getOngoing();
+        const notify = docs.filter((doc)=>{
+            const a = timer.countDown(doc.dateEnd);
+            let day = a.slice(0,a.indexOf("d"))
+            let hours = a.slice(a.indexOf("d")+2,a.indexOf("h"))
+            let minute = a.slice(a.indexOf("h")+2,a.indexOf("m"))
+            // let second = a.slice(a.indexOf("m")+2,a.indexOf("s"))
+            console.log(a)
+            if(day==5&&hours==0&&minute==0){
+                console.log(doc)
+            }
+        })
+        return notify
+    }
 }
 module.exports = AuctionServices;

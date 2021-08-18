@@ -17,7 +17,7 @@ const UsersSchema = mongoose.Schema({
         required:true
     },
     inventory:{
-        type:[Object]
+        type:[String]
     }
     ,
     accountStatus:{

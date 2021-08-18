@@ -10,9 +10,8 @@ const Timer = require('../../../lib/Timer');
 
 const timer = new Timer;
 
-
 app.get('/',async(req,res)=>{
-    const docs = await auction.expires();
+    const docs = await auction.getAll();
     res.json(docs)
 })
 app.get('/ongoing',async(req,res)=>{
@@ -24,7 +23,8 @@ app.get('/completed',async(req,res)=>{
     res.json(docs)
 })
 app.get('/one/:id',async(req,res)=>{
-    const doc = await auction.findId();
+    const id = req.params.id
+    const doc = await auction.findId({auctionId:id});
     res.json(doc)
 })
 app.post('/create/:productId',async (req,res)=>{

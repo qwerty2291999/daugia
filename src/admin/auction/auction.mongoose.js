@@ -5,7 +5,7 @@ class AuctionMongoose{
         return doc;
     }
     async findOne(any){
-        const doc = await auction.findOne(any)
+        const doc = await auction.find(any)
         return doc;
     }
     async getAll(){
@@ -14,6 +14,9 @@ class AuctionMongoose{
     }
     async updateOne(params){
         await auction.updateOne({_id:params.id}, { $set: {status:"completed"}})
+    }
+    async updateBet(params){
+        await auction.updateOne({_id:params._id},{$set:{currentBet:params.currentBet}})
     }
 }
 module.exports = AuctionMongoose;
