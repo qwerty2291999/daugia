@@ -1,5 +1,6 @@
 # daugia
 ###### Chỉ có Back-end
+###### Sử dụng MongoDB
 ###### Các tính năng:
 ###### Đăng nhập phân quyền sử dụng JWT và cookies
 ###### Tham gia hoặc quan tâm đấu giá
