@@ -9,3 +9,4 @@ Tự động tìm ra người thắng cuộc và gửi vào kho đồ
 Thêm,sửa đấu giá, mặt hàng
 Tìm kiếm đấu giá theo trạng thái
 Đã xong cơ bản còn nhiều tính năng nhỏ chưa phát triển
+.
